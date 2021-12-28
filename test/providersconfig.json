@@ -1,0 +1,13 @@
+{
+    "mysqlproviderconfig": {
+            "provider": "mysql", 
+            "host" : "0.0.0.0",
+            "database" : "redentitiestest",
+            "user" : "root", 
+            "password" : "gomezbl1974"
+        },
+    "sqliteproviderconfig": {
+        "provider": "sqlite", 
+        "databasepath" : "./redentitiestest.db"
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "entities": [
+        {   
+            "name": "users",
+            "fields": [
+                { "name": "Name", "type": "string" },
+                { "name": "Alias", "type": "string" }
+            ] 
+        },
+        {   
+            "name": "userlog",
+            "fields": [
+                { "name": "Description", "type": "string" },
+                { "name": "LogType", "type": "integer" }
+            ] 
+        },
+        {
+            "name": "booleantype",
+            "fields": [
+                { "name": "Value", "type": "boolean"} 
+            ]
+        },
+        {
+            "name": "datetimetype",
+            "fields": [
+                { "name": "Value", "type": "datetime" }
+            ]
+        },
+        {
+            "name": "defaultvalues",
+            "fields": [
+                { "name": "f0", "type": "string" },
+                { "name": "f1", "type": "boolean" },
+                { "name": "f2", "type": "datetime" }
+            ]
+        },
+        {
+            "name": "indexedtable",
+            "fields": [
+                { "name": "f0", "type": "key" },
+                { "name": "f1", "type": "integer" },
+                { "name": "f2", "type": "integer" },
+                { "name": "f3", "type": "integer" }
+            ],
+            "indexes": [ ["f0"], ["f1","f3"] ],
+            "restrictions": {
+                "unique": [ ["f0"] ]
+            }
+        },
+        {
+            "name": "keytable",
+            "fields": [
+                { "name": "k0", "type": "key" }
+            ]
+        },
+        {
+            "name": "jsontable",
+            "fields": [
+                { "name": "j0", "type": "json" }
+            ]
+        },
+        {
+            "name": "floattable",
+            "fields": [
+                { "name": "f", "type": "float" }
+            ]
+        },
+        {
+            "name": "longtexttype",
+            "fields": [
+                { "name": "t", "type": "longtext" }
+            ]
+        }
+    ]
+}
