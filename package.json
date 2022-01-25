@@ -12,15 +12,15 @@
     "fs-extra": "^10.0.0",
     "moment": "^2.29.1",
     "mysql2": "^2.3.3",
-    "shortid": "^2.2.15",
+    "shortid": "^2.2.16",
     "sqlite3": "git@github.com:mapbox/node-sqlite3.git#3fb3715c4e699ca3bc19e47b136758c66f61e477",
-    "underscore": "^1.13.1"
+    "underscore": "^1.13.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mantrajsframework/redentities.git"
   },
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.3.4"
   }
 }
