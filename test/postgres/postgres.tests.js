@@ -14,39 +14,31 @@ function EntityShortId() {
 
 describe( 'Mysql Redentities tests', () => {
     before( async () => {
-        //console.log(RedEntitiesConfig.database);
-        //await db.RemoveDatabase( RedEntitiesConfig.database );
-
-        //await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
+        await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
     });
 
-    it( '# first', async () => {
-        let schema = {};
-    });
-    
-    
-    it( '# first', async () => {
-        let schema = {
-            entities: [
-                {   name: EntityShortId(),
-                    fields: [
-                        { name: "Name", type: "string" },
-                        { name: "Age", type : "integer" }
-                    ] 
-                }   
-            ]
-        }
+    // it( '# first', async () => {
+    //     let schema = {
+    //         entities: [
+    //             {   name: EntityShortId(),
+    //                 fields: [
+    //                     { name: "Name", type: "string" },
+    //                     { name: "Age", type : "integer" }
+    //                 ] 
+    //             }   
+    //         ]
+    //     }
 
-        await db.RemoveDatabase( RedEntitiesConfig.database );
-        /*
-        const re = RedEntities.Entities( schema );
-        const r = await re.RunQuery( "DROP DATABASE IF EXISTS ff;" );
-        */
-        console.log(r);
-    });
+    //     await db.RemoveDatabase( RedEntitiesConfig.database );
+        
+    //     //const re = RedEntities.Entities( schema );
+    //     //const r = await re.RunQuery( "DROP DATABASE IF EXISTS ff;" );
+        
+    //     //console.log(r);
+    // });
     
 
-    // it( '# Mysql Check if no existing schema exists', async () => {
+    // it( '# Postgres Check if no existing schema exists', async () => {
     //     let schema = {
     //         entities: [
     //             {   name: EntityShortId(),
@@ -63,24 +55,24 @@ describe( 'Mysql Redentities tests', () => {
     //     assert.isFalse( exists );
     // });
 
-    // it( '# Mysql Check existing schema', async () => {
-    //     let testSchema = {
-    //         entities: [
-    //             {
-    //                 name: EntityShortId(),
-    //                 fields: [
-    //                     { name: "title", type: "string" }
-    //                 ]
-    //             }
-    //         ]
-    //     }
 
-    //     let db = RedEntities.Entities( testSchema );
-    //     await db.CreateSchema();
-    //     let exists = await db.ExistsSchema();
+    it( '# Postgres Check existing schema', async () => {
+        let testSchema = {
+            entities: [
+                {
+                    name: EntityShortId(),
+                    fields: [
+                        { name: "title", type: "string" }
+                    ]
+                }
+            ]
+        }
 
-    //     assert.isTrue( exists );
-    // });
+        let db = RedEntities.Entities( testSchema );
+        await db.CreateSchema();
+        let exists = await db.ExistsSchema();
+        assert.isTrue( exists );
+    });
 
     /*
     it( '# Mysql Create schema with one entity', async () => {
