@@ -4,7 +4,7 @@
   "description": "Simple & fast object-mapper & query builder, MySql, Sqlite AWS RDS mysql based databases supported",
   "main": "lib/redentities.js",
   "scripts": {
-    "test": "mocha test/sqlite && mocha test/mysql"
+    "test": "mocha test/sqlite && mocha test/mysql && mocha test/postgres"
   },
   "author": "",
   "license": "ISC",
