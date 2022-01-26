@@ -31,7 +31,7 @@ async function insertSampleUserEntities( count ) {
 
 describe( 'Postgres Redentities select tests', () => {
     before( async () => {
-        await require("../../lib/providers/postgres/PostgresConnector").ClearPool();
+        await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
 
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
         await RedEntities.Entities( testSchema ).CreateSchema();            
