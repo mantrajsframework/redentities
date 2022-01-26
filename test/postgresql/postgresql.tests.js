@@ -1,30 +1,27 @@
+/*
+ * This code file belongs to Mantra Framework project (www.mantrajs.com)
+ * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+ */ 
+
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
-const testSchema = require("../testschema.json");
-
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
+
+const testSchema = require("../testschema.json");
 const db = RedEntities.Entities(testSchema);
-
-function EntityShortId() {
-    ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-
-    // In Postgres, table names and entities should be lower case.
-    return "pg"+ShortId.generate().toLowerCase();
-}
 
 describe( 'Postgres Redentities tests', () => {
     before( async () => {
         await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
-
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
     });
 
     it( '# Postgres Check if no existing schema exists', async () => {
         let schema = {
             entities: [
-                {   name: EntityShortId(),
+                {   name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "Name", type: "string" },
                         { name: "Age", type : "integer" }
@@ -43,7 +40,7 @@ describe( 'Postgres Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" }
                     ]
@@ -62,7 +59,7 @@ describe( 'Postgres Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
@@ -78,14 +75,14 @@ describe( 'Postgres Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
                     ]
                 },
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "userx", type: "string" },
                         { name: "password", type: "string" }
@@ -169,7 +166,7 @@ describe( 'Postgres Redentities tests', () => {
     });
 
     it( '# Postgres RenameSchemaEntities', async() => {
-        let entityName = EntityShortId();
+        let entityName = RedEntitiesTestUtils.EntityShortId();
         let sufix = "_n";
 
         let schema = {

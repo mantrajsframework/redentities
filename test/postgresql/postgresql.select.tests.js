@@ -1,33 +1,17 @@
+/*
+ * This code file belongs to Mantra Framework project (www.mantrajs.com)
+ * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+ */ 
+
 const assert = require("chai").assert;
 const ShortId = require("shortid");
 
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
-const testSchema = require("../testschema.json");
-
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+
+const testSchema = require("../testschema.json");
 const db = RedEntities.Entities(testSchema);
-
-async function insertSampleUserEntity() {
-    let name = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
-
-    let entity = { name: name, alias: ShortId.generate() };
-
-    entity.ID = await db.users.I().V(entity).R();
-
-    return entity;
-}
-
-async function insertSampleUserEntities( count ) {
-    let r = [];
-
-    for( let i = 0 ; i < count; i++ ) {
-        let newEntity = await insertSampleUserEntity();
-
-        r.push( newEntity );
-    }
-
-    return r;
-}
 
 describe( 'Postgres Redentities select tests', () => {
     before( async () => {
@@ -38,7 +22,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Insert simple entity and check entity exists', async () => {        
-        let user = await insertSampleUserEntity();
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         let entity = await db.users.S().SingleById( user.ID );
 
         assert.equal( entity.ID, user.ID );
@@ -51,7 +35,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Insert simple entity and select by field', async () => {        
-        let user = await insertSampleUserEntity();        
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);        
         let entity = await db.users.S().W("name = ?", user.name).Single();
 
         assert.equal( entity.name, user.name );
@@ -74,7 +58,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Exists entity', async () => {
-        let user = await insertSampleUserEntity();
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         let exists = await db.users.S().W("name=?", user.name).Exists();
         
         assert.isTrue(exists);
@@ -112,7 +96,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Limit some values', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let fiveUsers = await db.users.S().L(0,5).R();
 
@@ -120,7 +104,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Limit one element', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
         
         let fiveUsers = await db.users.S().L(0,1).R();
 
@@ -128,7 +112,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Take some values', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
         
         let fiveUsers = await db.users.S().T(5).R();
 
@@ -136,7 +120,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Take one element', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
         
         let fiveUsers = await db.users.S().T(1).R();
 
@@ -144,7 +128,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Iterate all', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let count = await db.users.S().Count();
         let counted = 0;
@@ -159,7 +143,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Iterate all and check all different entities', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let counted = 0;
         let keys = new Set();
@@ -175,13 +159,13 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Mysql Order by', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         await db.users.S().OrderBy("name").R();
     });
 
     it( '# Postgres Order by asc and check values', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let entities = await db.users.S().OrderBy("name").R();
 
@@ -194,7 +178,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Order by desc and check values', async () => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let entities = await db.users.S().OB("name",false).R();
 
@@ -207,7 +191,7 @@ describe( 'Postgres Redentities select tests', () => {
     });
 
     it( '# Postgres Iterate all with entities ordered', async() => {
-        await insertSampleUserEntities( 10 );
+        await RedEntitiesTestUtils.InsertSampleUserEntities( db, 10 );
 
         let counted = 0;
         let keys = new Set();

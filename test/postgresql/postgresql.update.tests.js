@@ -1,21 +1,17 @@
+/*
+ * This code file belongs to Mantra Framework project (www.mantrajs.com)
+ * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+ */ 
+
 const assert = require("chai").assert;
 const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
-const testSchema = require("../testschema.json");
-
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
+
+const testSchema = require("../testschema.json");
 const db = RedEntities.Entities(testSchema);
-
-async function insertSampleUserEntity() {
-    let entity = { name: ShortId.generate(), alias: ShortId.generate() };
-
-    entity.ID = await db.Insert( "users" )
-        .Values( entity )
-        .Run()
-
-    return entity;
-}
 
 describe( 'Postgres Redentities update tests', () => {
     before( async () => {
@@ -27,7 +23,7 @@ describe( 'Postgres Redentities update tests', () => {
 
     it( '# Postgres Update simple entity', async () => {
         let newAlias = ShortId.generate();
-        let user = await insertSampleUserEntity();
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         await db.users.U().W("ID = ?", user.ID).V( ["alias"], [newAlias] ).R();
         let entity = await db.users.S().SingleById(user.ID);
 
@@ -36,7 +32,7 @@ describe( 'Postgres Redentities update tests', () => {
 
     it( '# Postgres Update simple entity with object', async () => {
         let newAlias = ShortId.generate();
-        let user = await insertSampleUserEntity();
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         await db.users.U().W("ID = ?", user.ID).V( { alias: newAlias } ).R();
         let entity = await db.users.S().SingleById(user.ID);
 
@@ -55,7 +51,7 @@ describe( 'Postgres Redentities update tests', () => {
 
     it( '# Postgres get update query string', async () => {
         let newAlias = ShortId.generate();
-        let user = await insertSampleUserEntity();
+        let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         let sqlQuery = await db.users.U().W("ID = ?", user.ID).V( { alias: newAlias } ).Q();
 
         assert.isString( sqlQuery );

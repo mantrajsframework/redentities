@@ -1,23 +1,20 @@
+/*
+ * This code file belongs to Mantra Framework project (www.mantrajs.com)
+ * in the scope of MIT license. More info at support@mantrajs.com. Enjoy :-)
+ */ 
+
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
-const testSchema = require("../testschema.json");
-
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
+
+const testSchema = require("../testschema.json");
 const db = RedEntities.Entities(testSchema);
-
-function EntityShortId() {
-    ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-
-    // In Postgres, table names and entities should be lower case.
-    return "pg"+ShortId.generate().toLowerCase();
-}
 
 describe( 'Postgres Indexes tests', () => {
     before( async () => {
         await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
-
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
     });
 
@@ -25,7 +22,7 @@ describe( 'Postgres Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "key" },
                         { "name": "name", "type": "string" }
@@ -46,7 +43,7 @@ describe( 'Postgres Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "integer" },
                         { "name": "name", "type": "string" }
@@ -63,54 +60,54 @@ describe( 'Postgres Indexes tests', () => {
         assert.isTrue( exists );
     });
 
-    // it( '# Postgres check index creation with type string', async () => {
-    //     let schema = {
-    //         entities: [
-    //             {
-    //                 name: EntityShortId(),
-    //                 fields: [
-    //                     { "name": "f0", "type": "string" },
-    //                     { "name": "name", "type": "string" }
-    //                 ],
-    //                 indexes: [ ["f0"] ]
-    //             }
-    //         ]
-    //     }
+    it( '# Postgres check index creation with type string', async () => {
+        let schema = {
+            entities: [
+                {
+                    name: RedEntitiesTestUtils.EntityShortId(),
+                    fields: [
+                        { "name": "f0", "type": "string" },
+                        { "name": "name", "type": "string" }
+                    ],
+                    indexes: [ ["f0"] ]
+                }
+            ]
+        }
 
-    //     let db = RedEntities.Entities( schema );
-    //     await db.CreateSchema();
-    //     let exists = await db.ExistsSchema();
+        let db = RedEntities.Entities( schema );
+        await db.CreateSchema();
+        let exists = await db.ExistsSchema();
 
-    //     assert.isTrue( exists );
-    // });
+        assert.isTrue( exists );
+    });
 
-    // it( '# Postgres check index creation with type multiple keys', async () => {
-    //     let schema = {
-    //         entities: [
-    //             {
-    //                 name: EntityShortId(),
-    //                 fields: [
-    //                     { "name": "f0", "type": "key" },
-    //                     { "name": "f1", "type": "key" },
-    //                     { "name": "name", "type": "string" }
-    //                 ],
-    //                 indexes: [ ["f0","f1"] ]
-    //             }
-    //         ]
-    //     }
+    it( '# Postgres check index creation with type multiple keys', async () => {
+        let schema = {
+            entities: [
+                {
+                    name: RedEntitiesTestUtils.EntityShortId(),
+                    fields: [
+                        { "name": "f0", "type": "key" },
+                        { "name": "f1", "type": "key" },
+                        { "name": "name", "type": "string" }
+                    ],
+                    indexes: [ ["f0","f1"] ]
+                }
+            ]
+        }
 
-    //     let db = RedEntities.Entities( schema );
-    //     await db.CreateSchema();
-    //     let exists = await db.ExistsSchema();
+        let db = RedEntities.Entities( schema );
+        await db.CreateSchema();
+        let exists = await db.ExistsSchema();
 
-    //     assert.isTrue( exists );
-    // });
+        assert.isTrue( exists );
+    });
 
     it( '# Postgres check index creation with type multiple indexes', async () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "key" },
                         { "name": "f1", "type": "key" },
