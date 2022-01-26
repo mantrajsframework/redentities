@@ -10,8 +10,8 @@
         "provider": "sqlite",
         "databasepath": "./redentitiestest.db"
     },
-    "postgresproviderconfig": {
-        "provider": "postgres",
+    "postgresqlproviderconfig": {
+        "provider": "postgresql",
         "user": "postgres",
         "host": "localhost",
         "database": "redentitiestest",

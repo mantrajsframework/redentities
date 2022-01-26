@@ -1,7 +1,7 @@
 const assert = require("chai").assert;
 const ShortId = require("shortid");
 
-const RedEntitiesConfig = require("../providersconfig.json").postgresproviderconfig;
+const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
@@ -9,6 +9,8 @@ const db = RedEntities.Entities(testSchema);
 
 describe( 'Postgres Redentities insert tests', () => {
     before( async () => {
+        await  require("../../lib/providers/postgres/PostgresConnector").ClearPool();
+
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
         await RedEntities.Entities( testSchema ).CreateSchema();            
     });
