@@ -8,7 +8,7 @@ const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
 const db = RedEntities.Entities(testSchema);
 
 async function insertSampleUserEntity() {
-    let entity = { Name: ShortId.generate(), Alias: ShortId.generate() };
+    let entity = { name: ShortId.generate(), alias: ShortId.generate() };
 
     entity.ID = await db.Insert( "users" )
         .Values( entity )
@@ -32,12 +32,12 @@ describe( 'Mysql Redentities delete tests', () => {
 
     it( '# Mysql Delete simple entity by field', async () => {
         let user = await insertSampleUserEntity();
-        await db.Delete("users").Where( "Name = ?", user.Name ).Run();
+        await db.Delete("users").Where( "name = ?", user.name ).Run();
     });
 
     it( '# Mysql Delete get query string', async () => {
         let user = await insertSampleUserEntity();
-        let sqlQuery = await db.Delete("users").Where( "Name = ?", user.Name ).Q();
+        let sqlQuery = await db.Delete("users").Where( "name = ?", user.name ).Q();
 
         assert.isString( sqlQuery );
     });

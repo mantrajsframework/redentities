@@ -15,27 +15,27 @@ describe( 'Sqlite Redentities insert tests', () => {
 
     
     it( '# Sqlite Insert simple entity', async () => {
-        let values = { Name: ShortId.generate(), Alias: ShortId.generate() };
+        let values = { name: ShortId.generate(), alias: ShortId.generate() };
         await db.users.I().V( values ).R();
     });
 
     
     it( '# Sqlite Insert simple entity and check ID', async () => {
-        let entityId = await db.users.I().V( { Name: ShortId.generate(), Alias: "foo" } ).R();
+        let entityId = await db.users.I().V( { name: ShortId.generate(), alias: "foo" } ).R();
 
         assert.equal( "string", typeof entityId );
     });
 
     
     it( '# Sqlite Insert boolean value with boolean value', async () => {
-        let entityId = await db.booleantype.I().V( { Value: true }).R();
+        let entityId = await db.booleantype.I().V( { value: true }).R();
 
         assert.equal( "string", typeof entityId );
     });
 
     
     it( '# Sqlite Insert boolean value with string value', async () => {
-        let entityId = await db.booleantype.I().V( { Value: "true" }).R();
+        let entityId = await db.booleantype.I().V( { value: "true" }).R();
 
         assert.equal( "string", typeof entityId );
     });
@@ -44,7 +44,7 @@ describe( 'Sqlite Redentities insert tests', () => {
     it( '# Sqlite Insert datetime value', async () => {
         let now = new Date(new Date().toUTCString())
 
-        let entityId = await db.datetimetype.I().V( { Value: now } ).R();
+        let entityId = await db.datetimetype.I().V( { value: now } ).R();
     
         assert.equal( "string", typeof entityId );
     });
@@ -126,11 +126,11 @@ describe( 'Sqlite Redentities insert tests', () => {
 
     it( '# Sqlite Insert string with quote entity', async () => {
         let alias = "O'Brian";
-        let values = { Name: ShortId.generate(), Alias: alias };
+        let values = { name: ShortId.generate(), alias: alias };
         let entityId = await db.users.I().V( values ).R();
 
         let entity = await db.users.S().SingleById(entityId);
-        assert.equal( entity.Alias, alias );
+        assert.equal( entity.alias, alias );
     });
 
     it( '# Sqlite Insert longtext', async () => {
@@ -153,7 +153,7 @@ describe( 'Sqlite Redentities insert tests', () => {
 
     it( '# Sqlite get query string', async () => {
         let alias = "O'Brian";
-        let values = { Name: ShortId.generate(), Alias: alias };
+        let values = { name: ShortId.generate(), alias: alias };
         let sqlQuery = await db.users.I().V( values ).Q();
 
         assert.isString( sqlQuery );
@@ -161,11 +161,11 @@ describe( 'Sqlite Redentities insert tests', () => {
 
     it( '# Sqlite insert and check JSON stringified', async () => {
         let v = ["admin"];
-        let values = { Name: JSON.stringify(v), Alias: v };
+        let values = { name: JSON.stringify(v), alias: v };
         let id = await db.users.I().V( values ).R();
 
         let entity = await db.users.S().SingleById(id);
-        let v2 = JSON.parse(entity.Name);
+        let v2 = JSON.parse(entity.name);
 
         assert.equal(v[0], v2[0]);
     });

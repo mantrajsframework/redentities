@@ -126,7 +126,7 @@ describe( 'Mysql Redentities tests', () => {
             ]
         }
 
-        let re = await RedEntities.Entities(testSchema);
+        let re = RedEntities.Entities(testSchema);
         await re.CreateSchema();
 
         await re.RenameSchemaEntities( "t" );

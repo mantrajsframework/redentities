@@ -9,6 +9,8 @@ const db = RedEntities.Entities(testSchema);
 
 function EntityShortId() {
     ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
+
+    // In Postgres, table names and entities should be lower case.
     return "pg"+ShortId.generate().toLowerCase();
 }
 
@@ -127,71 +129,69 @@ describe( 'Postgres Redentities tests', () => {
             ]
         }
 
-        let re = await RedEntities.Entities(testSchema);
+        let re = RedEntities.Entities(testSchema);
         await re.CreateSchema();
-
         await re.RenameSchemaEntities( "t" );
-
         let exists = await re.ExistsTable( "bookt" );
 
         assert.isTrue(exists);
     });
     
-    // it( '# Mysql check entities populated', async () => {
-    //     let testSchema = {
-    //         entities: [
-    //             {
-    //                 name: "book",
-    //                 fields: [
-    //                     { name: "title", type: "string" },
-    //                     { name: "alias", type: "string" }
-    //                 ]
-    //             }
-    //         ]
-    //     }
+    it( '# Postgres check entities populated', async () => {
+        let testSchema = {
+            entities: [
+                {
+                    name: "book",
+                    fields: [
+                        { name: "title", type: "string" },
+                        { name: "alias", type: "string" }
+                    ]
+                }
+            ]
+        }
 
-    //     let re = await RedEntities.Entities(testSchema);
+        let re = await RedEntities.Entities(testSchema);
         
-    //     await re.CreateSchema();
+        await re.CreateSchema();
 
-    //     assert.isTrue( typeof re.book.I == 'function' );
-    //     assert.isTrue( typeof re.book.S == 'function' );
-    //     assert.isTrue( typeof re.book.D == 'function' );
-    //     assert.isTrue( typeof re.book.U == 'function' );
-    // })
+        assert.isTrue( typeof re.book.I == 'function' );
+        assert.isTrue( typeof re.book.S == 'function' );
+        assert.isTrue( typeof re.book.D == 'function' );
+        assert.isTrue( typeof re.book.U == 'function' );
+    })
 
-    // it( '# Mysql NewId test', () => {
-    //     let newId = db.NewId();
+    it( '# Postgres NewId test', () => {
+        let newId = db.NewId();
 
-    //     assert.isString( newId );
-    // });
+        assert.isString( newId );
+    });
 
-    // it( '# Mysql RenameSchemaEntities', async() => {
-    //     let entityName = EntityShortId();
-    //     let sufix = "_n";
+    it( '# Postgres RenameSchemaEntities', async() => {
+        let entityName = EntityShortId();
+        let sufix = "_n";
 
-    //     let schema = {
-    //         entities: [
-    //             {   name: entityName,
-    //                 fields: [
-    //                     { name: "Name", type: "string" },
-    //                     { name: "Age", type : "integer" }
-    //                 ] 
-    //             }   
-    //         ]
-    //     }
+        let schema = {
+            entities: [
+                {   name: entityName,
+                    fields: [
+                        { name: "Name", type: "string" },
+                        { name: "Age", type : "integer" }
+                    ] 
+                }   
+            ]
+        }
 
-    //     let db = RedEntities.Entities( schema );
-    //     await db.CreateSchema();
+        let db = RedEntities.Entities( schema );
+        await db.CreateSchema();
 
-    //     assert.isTrue( await db.ExistsSchema() );
+        assert.isTrue( await db.ExistsSchema() );
 
-    //     await db.RenameSchemaEntities( sufix );
+        await db.RenameSchemaEntities( sufix );
 
-    //     assert.isTrue(await db.ExistsTable( entityName+sufix ));
-    // });
+        assert.isTrue(await db.ExistsTable( entityName+sufix ));
+    });
 
-    // it( '# Mysql Exists database', async() => {
-    //     assert.isTrue( await db.ExistsDatabase( RedEntitiesConfig.database ) );
-    // });
+    it( '# Postgres Exists database', async() => {
+        assert.isTrue( await db.ExistsDatabase( RedEntitiesConfig.database ) );
+    });
 });

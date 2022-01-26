@@ -10,7 +10,7 @@ const db = RedEntities.Entities(testSchema);
 async function insertSampleUserEntity() {
     let name = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
-    let entity = { Name: name, Alias: ShortId.generate() };
+    let entity = { name: name, alias: ShortId.generate() };
 
     entity.ID = await db.users.I().V(entity).R();
 
@@ -50,9 +50,9 @@ describe( 'Sqlite Redentities select tests', () => {
 
     it( '# Sqlite Insert simple entity and select by field', async () => {        
         let user = await insertSampleUserEntity();        
-        let entity = await db.users.S().W("Name = ?", user.Name).Single();
+        let entity = await db.users.S().W("name = ?", user.name).Single();
 
-        assert.equal( entity.Name, user.Name );
+        assert.equal( entity.name, user.name );
     });
 
     it( '# Sqlite Try select by field with no existing field', async () => {
@@ -73,40 +73,40 @@ describe( 'Sqlite Redentities select tests', () => {
 
     it( '# Sqlite Exists entity', async () => {
         let user = await insertSampleUserEntity();
-        let exists = await db.users.S().W("Name = ?", user.Name).Exists();
+        let exists = await db.users.S().W("name = ?", user.name).Exists();
         
         assert.isTrue(exists);
     });    
 
     it( '# Sqlite Check no exists no existing entity', async () => {
         let userName = ShortId.generate();
-        let exists = await db.users.S().W("Name = ?", userName).Exists();
+        let exists = await db.users.S().W("name = ?", userName).Exists();
         
         assert.isFalse(exists);    
     });    
 
     it( '# Sqlite Check boolean value with boolean value to true', async () => {
-        let entityId = await db.booleantype.I().V( { Value: "true" }).R();
+        let entityId = await db.booleantype.I().V( { value: "true" }).R();
         let entity = await db.booleantype.S().SingleById( entityId );
 
-        assert.isTrue( entity.Value );
+        assert.isTrue( entity.value );
     });
 
     it( '# Sqlite Check boolean value with boolean value to false', async () => {
-        let entityId = await db.booleantype.I().V( { Value: "false" }).R();
+        let entityId = await db.booleantype.I().V( { value: "false" }).R();
         let entity = await db.booleantype.S().SingleById( entityId );
 
-        assert.isFalse( entity.Value );
+        assert.isFalse( entity.value );
     });
 
     it( '# Sqlite Check datetime value', async () => {
         let now = new Date(new Date().toUTCString())
         
-        let entityId = await db.datetimetype.I().V( { Value: now } ).R();
+        let entityId = await db.datetimetype.I().V( { value: now } ).R();
     
         let entity = await db.datetimetype.S().SingleById( entityId );
 
-        assert.equal(now.toString(), entity.Value.toString());
+        assert.equal(now.toString(), entity.value.toString());
     });
 
     it( '# Sqlite Limit some values', async () => {
@@ -181,11 +181,11 @@ describe( 'Sqlite Redentities select tests', () => {
     it( '# Sqlite Order by asc and check values', async () => {
         await insertSampleUserEntities( 10 );
 
-        let entities = await db.users.S().OrderBy("Name").R();
+        let entities = await db.users.S().OrderBy("name").R();
 
         for( let i = 0; i < entities.length-1; i++ ) {
-            let name1 = entities[i].Name;
-            let name2 = entities[i+1].Name;
+            let name1 = entities[i].name;
+            let name2 = entities[i+1].name;
 
             assert.equal( -1, name1.localeCompare(name2) );
         }
@@ -194,11 +194,11 @@ describe( 'Sqlite Redentities select tests', () => {
     it( '# Sqlite Order by desc and check values', async () => {
         await insertSampleUserEntities( 10 );
 
-        let entities = await db.users.S().OB("Name",false).R();
+        let entities = await db.users.S().OB("name",false).R();
 
         for( let i = 0; i < entities.length-1; i++ ) {
-            let name1 = entities[i].Name;
-            let name2 = entities[i+1].Name;
+            let name1 = entities[i].name;
+            let name2 = entities[i+1].name;
 
             assert.equal( 1, name1.localeCompare(name2) );
         }

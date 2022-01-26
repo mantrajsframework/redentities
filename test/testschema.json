@@ -3,27 +3,34 @@
         {   
             "name": "users",
             "fields": [
-                { "name": "Name", "type": "string" },
-                { "name": "Alias", "type": "string" }
+                { "name": "name", "type": "string" },
+                { "name": "alias", "type": "string" }
+            ] 
+        },
+        {   
+            "name": "users",
+            "fields": [
+                { "name": "name", "type": "string" },
+                { "name": "alias", "type": "string" }
             ] 
         },
         {   
             "name": "userlog",
             "fields": [
-                { "name": "Description", "type": "string" },
-                { "name": "LogType", "type": "integer" }
+                { "name": "description", "type": "string" },
+                { "name": "logType", "type": "integer" }
             ] 
         },
         {
             "name": "booleantype",
             "fields": [
-                { "name": "Value", "type": "boolean"} 
+                { "name": "value", "type": "boolean"} 
             ]
         },
         {
             "name": "datetimetype",
             "fields": [
-                { "name": "Value", "type": "datetime" }
+                { "name": "value", "type": "datetime" }
             ]
         },
         {
