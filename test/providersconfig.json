@@ -3,8 +3,8 @@
         "provider": "mysql",
         "host": "0.0.0.0",
         "database": "redentitiestest",
-        "user": "root",
-        "password": "gomezbl1974"
+        "user": "testuser",
+        "password": "12345"
     },
     "sqliteproviderconfig": {
         "provider": "sqlite",
