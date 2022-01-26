@@ -1,4 +1,4 @@
-# #04 Red Entities supported types
+# 04 Red Entities supported types
 
 These are the types mapped from Red Entities to MySql databases:
 
@@ -23,13 +23,3 @@ The following are the mappings to Sqlite3 database engine:
 * "longtext" -> Sqlite3 type of TEXT, default value of "" (empty string)
 
 Tip: keeping your data persistance simple improves the design and scalability of your application.
-
-[Next - #05 Indexes](/docs/05-indexes.md)
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)

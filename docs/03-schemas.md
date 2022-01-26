@@ -1,16 +1,18 @@
-# 03 Red Entities schemas
+# 03 Red Entities schemes
 
-A schema is a json object describing the data you need to persist.
+A *schema* is a json object describing the data you need to persist.
 
-One json schema object can contain different entities (tables), each one with different propeties (fields).
+The intend of Red Entities is that components or applications can define simple *data table models* for their data persistance needs.
+
+One json schema object can contain different entities (that finally will be translated to tables), each one with different propeties (fields).
 
 Each entity consists of a number of properties (fields with their types).
 
-Red Entities maps the schema to sql table dialects, depending on the provider (Mysql, Sqlite, etc.).
+Red Entities maps the schema to sql table dialects, depending on the provider (PosgreSQL, Mysql, Sqlite, etc.), according to configuration.
 
-In the scope of your application, create your Red Entities instances with your schemas *once*, because the process of mapping and creation of shortcut functions is heavy load.
+In the scope of your application, create your Red Entities instances with your schemes *once*, because the process of mapping and creation of shortcut functions is heavy load.
 
-## #03 Defining a schema
+## Defining a schema
 
 You define a schema with this sort of json object:
 
@@ -19,8 +21,10 @@ const schema = {
     entities: [
         {
             name : <name of the entity>,
-            fields: [
-                { name : <name of the property>, type: <type of the property>, default: <default value> }
+            fields: [{ 
+                name : "<name of the property>", 
+                type: "<type of the property>", 
+                default: <default value> }
                 ...
             ],
             indexes: [ [<name of the property>], [<name of the property 1>, <name of the property 2>] ],
@@ -33,14 +37,4 @@ const schema = {
 }
 ```
 
-Each entity is mapped to a sql table. See next section [#04 Types supported](/docs/04-types.md) to check types currently supported and how they are mapped to specific engines supported.
-
-[Next - #04 Supported types](/docs/04-types.md) 
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)
+Each entity is mapped to a sql table. See next sections to check types currently supported and how they are mapped to specific engines supported.

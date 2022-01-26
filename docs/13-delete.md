@@ -1,21 +1,17 @@
-# #13 Red Entities delete sentences
+# 13 Red Entities delete sentences: D() selector
 
 Deleting entities with Red Entities is fast using D() selector:
 
+Remove and entity by its id:
+
 ```js
 await db.users.D().DeleteById(userIdToRemove);
+```
 
+Remove and entity by any other field value:
+
+```js
 await db.users.D().W("mail=?",mail).R();
 ```
 
 D() selectors returns the number of rows removed.
-
-[Next - #14 Iterating over values](/docs/14-iterating.md)
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)

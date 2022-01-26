@@ -1,30 +1,51 @@
-# #02 Red Entities schemas
+# 02 Red Entities providers
 
 (Remember: best documentation in software should be found at... tests)
 
-When creating Red Entities instance, you need to set the provider config (Mysql, Sqlite, etc).
+When creating a Red Entities instance, you need to set the provider configuration (currently PostgreSQL, Mysql, Sqlite, Aurora, etc).
 
 This provider info is a json object with some credentials (if needed) of data that the provider needs.
 
+## Mysql provider config
+
 For Mysql based engines, json configuration object is like this:
 
-```js
+```json
 {
     provider: "mysql",
-    host: <mysql host, localhost, ip, domain, etc.>,
-    user: <user name>,
-    password: <user password>
+    host: "<mysql host, localhost, ip, domain, etc.>",
+    user: "<user name>",
+    password: "<user password>"
 }
 ```
 
-For Sqlite instance, the json configuration is simple:
+## Sqlite provider config
 
-```js
+For Sqlite instances, the json configuration is simple:
+
+```json
 {
     provider: "sqlite",
-    databasepath: <full path to the database file>
+    databasepath: "<relative or full path to the database file>"
 }
 ```
+
+## PostgreSQL provider config
+
+For PostgreeSQL instances, the json configuration is as simple as above:
+
+```json
+{
+    provider: "postgresql",
+    host: "<host location / IP>",
+    user: "<user role to access to the database>",
+    password: "<password>"
+    database: "<name of the database>",
+    port: <port, optional, default 5432>
+}
+```
+
+## Getting a RedEntities instance
 
 Given a configuration json object, you get a new Red Entities instance with:
 
@@ -33,6 +54,16 @@ const RedEntities = require("redentities")( config );
 ```
 
 Some samples of config files:
+
+```js
+const config = {
+    provider: "postgresql",
+    user: "postgres",
+    host: "localhost",
+    database: "redentitiestest",
+    password: "12345"
+}
+```
 
 ```js
 const config = {
@@ -49,13 +80,3 @@ const config {
     databasepath: "/mnt/files/mydatabase.db"
 }
 ```
-
-[Next - #03 Defining schemas](/docs/03-schemas.md)
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)

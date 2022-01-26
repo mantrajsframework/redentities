@@ -1,6 +1,6 @@
-# #05 Red Entities indexes
+# 05 Red Entities indexes
 
-You can create any number of indexes in the definition of the schemas for your entities.
+You can create any number of indexes in the definition of the schemes for your entities.
 
 Two types indexes: regular ones and unique ones.
 
@@ -32,13 +32,3 @@ const sampleSchema = {
 In this sample, three indexes will be created when installing the schema in the database: one for "mail", one for "created" and another (and unique) for "mail".
 
 You can create indexes for more than one field, like ["mail","alias"], ie.
-
-[Next - #06 Rows ids](/docs/06-ids.md)
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)

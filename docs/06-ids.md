@@ -1,4 +1,4 @@
-# #06 Red Entities rows ids
+# 06 Red Entities rows ids
 
 Red Entities automatically adds the property "ID" (upper case) to each entity it creates.
 
@@ -40,13 +40,3 @@ const db = await RedEntities.Entities(sampleSchema);
 ```js
 const netId = db.NewID();
 ```
-
-[Next #07 Sample schema](/docs/07-sampleschema.md)
-
-#### Credits
-
-`RedEntities` has been fully written by  [Rafael Gómez Blanes](https://github.com/gomezbl)
-
-Professional site at [Rafablanes.com](https://www.rafablanes.com)
-
-Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)

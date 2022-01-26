@@ -11,7 +11,9 @@
 
 Red Entities is a simple but flexible and fast object-mapper & sql query builder.
 
-Red Entities is focused on minimal typing when accesing data and the definition of database models using schemas (simple json objects).
+This is a subproject of [Mantra Framework](https://www.mantrajs.com) you can use freely in your own projects.
+
+Red Entities is focused on minimal typing when accesing data and the definition of database models using schemes (simple json objects).
 
 A model is defined in a json object, called *schema*.
 
@@ -20,26 +22,34 @@ Data access (inserts, selects, removes and updates), are done by *selectors* for
 ## Database engines supported
 
 Tested with:
+
+* PostgreSQL 8.x
 * Mysql 5.x
 * Mysql 8.x
 * Amazon Aurora
 * AWS RDS databases based on Mysql
 * Sqlite3
-* (future integration of Posgresql, MariaDB and Sql Server)
+* (future integration of Redis, MariaDB, Sql Server, Sql Azure Tables, DynamoDB, etc.)
   
 Thus, has been fully tested with:
+
 * Node.js 10.x
 * Node.js 12.x
 * Node.js 13.x
 * Node.js 14.x
+* Node.js 15.x
+* Node.js 16.x
+* Node.js 17.x
 
 ## Install
 
-    $ npm i redentities --save
+```bash
+$ npm i redentities --save
+```
 
 ## Test
 
-Change database configuration [providers](/docs/providers.md) in file located at:
+Change database configuration [providers](/docs/02-providers.md) in file located at:
 
 ```
 /test/providersconfig.json
@@ -49,11 +59,16 @@ Testing will create many databases and tables.
 
 Then, just run (mocha required): 
 
-    $ npm test
+```bash
+$ npm run testmysql
+$ npm run testsqlite
+$ npm run testpostgresql
+```
 
 ## Basic sample
 
-Consider this self-explained schema: 
+As a basic introduction, consider this self-explained schema: 
+
 ```js
 const sampleSchema = {
     entities: [
@@ -81,7 +96,7 @@ const RedEntities = require("redentities")({
 });
 ```
 
-Create once schema in database with:
+Create the schema in database with:
 
 ```js
 await RedEntities.Entities(sampleSchema).CreateSchema();
@@ -100,7 +115,7 @@ const newUserId = await db.users.I().V( {
 Retrieve an entity with simple sentences like:
 
 ```js
-let userEntity = await db.users.S().SingleById(userId);
+const userEntity = await db.users.S().SingleById(userId);
 ```
 
 ## Documentation
@@ -143,12 +158,15 @@ Professional site at [Rafablanes.com](https://www.rafablanes.com)
 
 Have a look to my books at [Rafa G. Blanes books](https://www.rafablanes.com/mislibros)
 
-## About
-
-This project is part of the libraries developed for projects like [Hub de Libros](https://www.hubdelibros.com) and others.
-
 ## License
 
-Licensed under MIT
+Licensed under MIT terms.
 
-Copyright (c) 2019-2020 [Rafael Gómez Blanes](https://github.com/gomezbl)
+Copyright (c) 2019-2021:
+
+* [Mantra Framework &copy;](https://www.mantrajs.com)
+* [Rafael Gómez Blanes](https://www.rafablanes.com) 
+
+## Contact an support
+
+You can contact us by GitHub, accesing [Mantra web site](https://wwww.mantrajs.com) or at support@mantrajs.com.
