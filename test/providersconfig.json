@@ -16,5 +16,12 @@
         "host": "localhost",
         "database": "redentitiestest",
         "password": "12345"
+    },
+    "mariadbproviderconfig": {
+        "provider": "mariadb",
+        "host": "0.0.0.0",
+        "database": "redentitiestest",
+        "user": "testuser",
+        "password": "12345"
     }
 }
