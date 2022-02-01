@@ -4,8 +4,10 @@ const { nanoid } = require("nanoid");
 
 module.exports = {
     EntityShortId: () => {
-        // In Postgres, table names and entities should be lower case.
-        return "pg"+nanoid(12).toLowerCase().replace(/-/g,"A").replace(/_/g,"B");
+        // In Postgres, table names and entities should be lower case and
+        // cannot start by numbers. '-' and '_' are change to test select when retrieveing
+        // data by order.
+        return "pg"+nanoid(12).replace(/-/g,"A").replace(/_/g,"B").toLowerCase();
     },
     
     InsertSampleUserEntity: async (db) => {

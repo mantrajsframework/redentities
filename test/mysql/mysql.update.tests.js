@@ -23,6 +23,10 @@ describe( 'Mysql Redentities update tests', () => {
         await RedEntities.Entities( testSchema ).CreateSchema();            
     });
 
+    after( async() => {
+        await require("../../lib/providers/mysql/MySqlConnector").ClearPool();
+    });
+
     it( '# Mysql Update simple entity', async () => {
         let newAlias = RedEntitiesTestUtils.EntityShortId();
         let user = await insertSampleUserEntity();

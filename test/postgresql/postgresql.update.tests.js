@@ -14,10 +14,12 @@ const db = RedEntities.Entities(testSchema);
 
 describe( 'Postgres Redentities update tests', () => {
     before( async () => {
-        await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
-
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
         await RedEntities.Entities( testSchema ).CreateSchema();            
+    });
+
+    after( async () => {
+        await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
     });
 
     it( '# Postgres Update simple entity', async () => {

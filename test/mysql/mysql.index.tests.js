@@ -12,6 +12,10 @@ describe( 'Mysql Indexes tests', () => {
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
     });
 
+    after( async() => {
+        await require("../../lib/providers/mysql/MySqlConnector").ClearPool();
+    });
+
     it( '# Mysql check index creation with type key', async () => {
         let schema = {
             entities: [

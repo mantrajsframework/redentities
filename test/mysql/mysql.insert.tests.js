@@ -13,6 +13,10 @@ describe( 'Mysql Redentities insert tests', () => {
         await RedEntities.Entities( testSchema ).CreateSchema();            
     });
 
+    after( async() => {
+        await require("../../lib/providers/mysql/MySqlConnector").ClearPool();
+    });
+
     it( '# Mysql Insert simple entity', async () => {
         let values = { name: RedEntitiesTestUtils.EntityShortId(), alias: RedEntitiesTestUtils.EntityShortId() };
         await db.users.I().V( values ).R();

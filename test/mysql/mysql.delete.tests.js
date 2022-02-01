@@ -23,6 +23,10 @@ describe( 'Mysql Redentities delete tests', () => {
         await RedEntities.Entities( testSchema ).CreateSchema();            
     });
 
+    after( async() => {
+        await require("../../lib/providers/mysql/MySqlConnector").ClearPool();
+    });
+
     it( '# Mysql Delete simple entity by ID', async () => {
         let user = await insertSampleUserEntity();
         await db.Delete("users").DeleteById( user.ID );

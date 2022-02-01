@@ -14,8 +14,11 @@ const db = RedEntities.Entities(testSchema);
 
 describe( 'Postgres Redentities tests', () => {
     before( async () => {
-        await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
+    });
+
+    after( async () => {
+        await require("../../lib/providers/postgresql/PostgresqlConnector").ClearPool();
     });
 
     it( '# Postgres Check if no existing schema exists', async () => {
