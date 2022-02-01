@@ -12,6 +12,10 @@ describe( 'Mysql Redentities tests', () => {
         await db.RemoveAndCreateDatabase( RedEntitiesConfig.database );
     });
 
+    after( async() => {
+        await require("../../lib/providers/mariadb/MariaDBConnector").ClearPool();
+    });
+
     it( '# Mysql Check if no existing schema exists', async () => {
         let schema = {
             entities: [

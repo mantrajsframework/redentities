@@ -35,6 +35,10 @@ describe( 'Mysql Redentities select tests', () => {
         await RedEntities.Entities( testSchema ).CreateSchema();            
     });
 
+    after( async() => {
+        await require("../../lib/providers/mariadb/MariaDBConnector").ClearPool();
+    });
+
     it( '# Mysql Insert simple entity and check entity exists', async () => {        
         let user = await insertSampleUserEntity();
         let entity = await db.users.S().SingleById( user.ID );
