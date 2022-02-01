@@ -1,13 +1,11 @@
 "use strict";
 
-const ShortId = require("shortid");
+const { nanoid } = require("nanoid");
 
 module.exports = {
     EntityShortId: () => {
-        ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-    
         // In Postgres, table names and entities should be lower case.
-        return "pg"+ShortId.generate().toLowerCase();
+        return "pg"+nanoid(12).toLowerCase().replace(/-/g,"A").replace(/_/g,"B");
     },
     
     InsertSampleUserEntity: async (db) => {
@@ -28,8 +26,8 @@ module.exports = {
 }
 
 async function insertSampleUserEntityImpl(db) {
-    const testName = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods;
-    const entity = { name: testName, alias: ShortId.generate() };
+    const testName = nanoid().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods;
+    const entity = { name: testName, alias: nanoid() };
 
     entity.ID = await db.Insert( "users" )
         .Values( entity )

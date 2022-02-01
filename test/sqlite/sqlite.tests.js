@@ -4,18 +4,13 @@
  */ 
 
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").sqliteproviderconfig;
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
 const db = RedEntities.Entities(testSchema);
-
-function TableEntityShortId() {
-    ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-    return `table${ShortId.generate()}`;
-}
 
 describe( 'Sqlite Redentities tests', () => {
     before( async () => {
@@ -26,7 +21,7 @@ describe( 'Sqlite Redentities tests', () => {
     it( '# Sqlite Sqlite Check if no existing schema exists', async () => {
         let schema = {
             entities: [
-                {   name: TableEntityShortId(),
+                {   name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "Name", type: "string" },
                         { name: "Age", type : "integer" }
@@ -44,7 +39,7 @@ describe( 'Sqlite Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: TableEntityShortId("table"),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" }
                     ]
@@ -65,7 +60,7 @@ describe( 'Sqlite Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: TableEntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
@@ -82,14 +77,14 @@ describe( 'Sqlite Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: TableEntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
                     ]
                 },
                 {
-                    name: TableEntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "user", type: "string" },
                         { name: "password", type: "string" }
@@ -176,7 +171,7 @@ describe( 'Sqlite Redentities tests', () => {
     });
 
     it( '# Mysql RenameSchemaEntities', async() => {
-        let entityName = TableEntityShortId();
+        let entityName = RedEntitiesTestUtils.EntityShortId();
         let sufix = "_n";
 
         let schema = {

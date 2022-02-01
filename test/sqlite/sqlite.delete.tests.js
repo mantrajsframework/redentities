@@ -4,16 +4,16 @@
  */ 
 
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").sqliteproviderconfig;
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
 const db = RedEntities.Entities(testSchema);
 
 async function insertSampleUserEntity() {
-    let entity = { name: ShortId.generate(), alias: ShortId.generate() };
+    let entity = { name: RedEntitiesTestUtils.EntityShortId(), alias: RedEntitiesTestUtils.EntityShortId() };
 
     entity.ID = await db.Insert( "users" )
         .Values( entity )

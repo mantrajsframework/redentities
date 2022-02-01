@@ -1,16 +1,11 @@
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").mysqlproviderconfig;
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
 const db = RedEntities.Entities(testSchema);
-
-function EntityShortId() {
-    ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-    return ShortId.generate();
-}
 
 describe( 'Mysql Redentities tests', () => {
     before( async () => {
@@ -20,7 +15,7 @@ describe( 'Mysql Redentities tests', () => {
     it( '# Mysql Check if no existing schema exists', async () => {
         let schema = {
             entities: [
-                {   name: EntityShortId(),
+                {   name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "Name", type: "string" },
                         { name: "Age", type : "integer" }
@@ -38,7 +33,7 @@ describe( 'Mysql Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" }
                     ]
@@ -57,7 +52,7 @@ describe( 'Mysql Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
@@ -73,14 +68,14 @@ describe( 'Mysql Redentities tests', () => {
         let testSchema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "title", type: "string" },
                         { name: "alias", type: "string" }
                     ]
                 },
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { name: "user", type: "string" },
                         { name: "password", type: "string" }
@@ -166,7 +161,7 @@ describe( 'Mysql Redentities tests', () => {
     });
 
     it( '# Mysql RenameSchemaEntities', async() => {
-        let entityName = EntityShortId();
+        let entityName = RedEntitiesTestUtils.EntityShortId();
         let sufix = "_n";
 
         let schema = {

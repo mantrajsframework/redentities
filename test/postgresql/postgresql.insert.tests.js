@@ -4,9 +4,9 @@
  */ 
 
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
@@ -20,12 +20,12 @@ describe( 'Postgres Redentities insert tests', () => {
     });
 
     it( '# Postgres Insert simple entity', async () => {
-        let values = { name: ShortId.generate(), alias: ShortId.generate() };
+        let values = { name: RedEntitiesTestUtils.EntityShortId(), alias: RedEntitiesTestUtils.EntityShortId() };
         await db.users.I().V( values ).R();
     });
 
     it( '# Postgres Insert simple entity and check ID', async () => {
-        let entityId = await db.users.I().V( {nName: ShortId.generate(), alias: "foo" } ).R();
+        let entityId = await db.users.I().V( {nName: RedEntitiesTestUtils.EntityShortId(), alias: "foo" } ).R();
 
         assert.equal( "string", typeof entityId );
     });
@@ -120,7 +120,7 @@ describe( 'Postgres Redentities insert tests', () => {
 
     it( '# Postgres Insert string with quote entity', async () => {
         let alias = "O'Brian";
-        let values = { name: ShortId.generate(), alias: alias };
+        let values = { name: RedEntitiesTestUtils.EntityShortId(), alias: alias };
         let entityId = await db.users.I().V( values ).R();
 
         let entity = await db.users.S().SingleById(entityId);
@@ -148,7 +148,7 @@ describe( 'Postgres Redentities insert tests', () => {
 
     it( '# Postgres get query string', async () => {
         let alias = "O'Brian";
-        let values = { name: ShortId.generate(), alias: alias };
+        let values = { name: RedEntitiesTestUtils.EntityShortId(), alias: alias };
         let sqlQuery = await db.users.I().V( values ).Q();
 
         assert.isString( sqlQuery );

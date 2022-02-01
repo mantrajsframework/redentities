@@ -4,7 +4,6 @@
  */ 
 
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").postgresqlproviderconfig;
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
@@ -22,7 +21,7 @@ describe( 'Postgres Redentities update tests', () => {
     });
 
     it( '# Postgres Update simple entity', async () => {
-        let newAlias = ShortId.generate();
+        let newAlias = RedEntitiesTestUtils.EntityShortId();
         let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         await db.users.U().W("ID = ?", user.ID).V( ["alias"], [newAlias] ).R();
         let entity = await db.users.S().SingleById(user.ID);
@@ -31,7 +30,7 @@ describe( 'Postgres Redentities update tests', () => {
     });
 
     it( '# Postgres Update simple entity with object', async () => {
-        let newAlias = ShortId.generate();
+        let newAlias = RedEntitiesTestUtils.EntityShortId();
         let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         await db.users.U().W("ID = ?", user.ID).V( { alias: newAlias } ).R();
         let entity = await db.users.S().SingleById(user.ID);
@@ -50,7 +49,7 @@ describe( 'Postgres Redentities update tests', () => {
     });
 
     it( '# Postgres get update query string', async () => {
-        let newAlias = ShortId.generate();
+        let newAlias = RedEntitiesTestUtils.EntityShortId();
         let user = await RedEntitiesTestUtils.InsertSampleUserEntity(db);
         let sqlQuery = await db.users.U().W("ID = ?", user.ID).V( { alias: newAlias } ).Q();
 

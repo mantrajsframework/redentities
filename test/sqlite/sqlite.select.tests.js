@@ -4,18 +4,18 @@
  */ 
 
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").sqliteproviderconfig;
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
 const db = RedEntities.Entities(testSchema);
 
 async function insertSampleUserEntity() {
-    let name = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
+    let name = RedEntitiesTestUtils.EntityShortId().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
-    let entity = { name: name, alias: ShortId.generate() };
+    let entity = { name: name, alias: RedEntitiesTestUtils.EntityShortId() };
 
     entity.ID = await db.users.I().V(entity).R();
 
@@ -48,7 +48,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Try SingleById with no existing id', async () => {        
-        db.users.S().SingleById( ShortId.generate() )
+        db.users.S().SingleById( RedEntitiesTestUtils.EntityShortId() )
             .then( () => assert.fail("Should fail SingleById() method") )
             .catch( err => assert.ok(true) );
     });
@@ -61,7 +61,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Try select by field with no existing field', async () => {
-        await db.users.S().W("Name = ?", ShortId.generate()).Single()
+        await db.users.S().W("Name = ?", RedEntitiesTestUtils.EntityShortId()).Single()
             .then( () => assert.fail("Shold fail Single() method") )
             .catch( err => assert.ok(true) )
     });
@@ -84,7 +84,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });    
 
     it( '# Sqlite Check no exists no existing entity', async () => {
-        let userName = ShortId.generate();
+        let userName = RedEntitiesTestUtils.EntityShortId();
         let exists = await db.users.S().W("name = ?", userName).Exists();
         
         assert.isFalse(exists);    
@@ -226,7 +226,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Insert key string in a key field', async() => {
-        let key = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
+        let key = RedEntitiesTestUtils.EntityShortId().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
         let entity = { k0: key };
     
@@ -236,7 +236,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Insert and get key string in a key field', async() => {
-        let key = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
+        let key = RedEntitiesTestUtils.EntityShortId().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
         let entity = { k0: key };
     
@@ -249,7 +249,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Insert in a json field', async() => {
-        let key = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
+        let key = RedEntitiesTestUtils.EntityShortId().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
         let entity = { j0: { value: key } };
     
@@ -259,7 +259,7 @@ describe( 'Sqlite Redentities select tests', () => {
     });
 
     it( '# Sqlite Insert in a json field and retrieve', async() => {
-        let key = ShortId.generate().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
+        let key = RedEntitiesTestUtils.EntityShortId().replace("-","A").replace("_","B"); // Avoid _ and - to test order by methods
 
         let entity = { j0: { value: key } };
     

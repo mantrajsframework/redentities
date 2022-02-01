@@ -1,14 +1,14 @@
 const { assert } = require("chai");
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").mariadbproviderconfig;
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const db = RedEntities.Entities(testSchema);
 
 async function insertSampleUserEntity() {
-    let entity = { name: ShortId.generate(), alias: ShortId.generate() };
+    let entity = { name: RedEntitiesTestUtils.EntityShortId(), alias: RedEntitiesTestUtils.EntityShortId() };
 
     entity.ID = await db.Insert( "users" )
         .Values( entity )

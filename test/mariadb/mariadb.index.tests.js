@@ -1,16 +1,12 @@
 const assert = require("chai").assert;
-const ShortId = require("shortid");
 
 const RedEntitiesConfig = require("../providersconfig.json").mariadbproviderconfig;
 const testSchema = require("../testschema.json");
 
 const RedEntities = require("../../lib/redentities")(RedEntitiesConfig);
+const RedEntitiesTestUtils = require("../lib/redentitiestestutils");
 const db = RedEntities.Entities(testSchema);
 
-function EntityShortId() {
-    ShortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ');
-    return ShortId.generate();
-}
 
 describe( 'Mysql Indexes tests', () => {
     before( async () => {
@@ -21,7 +17,7 @@ describe( 'Mysql Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "key" },
                         { "name": "name", "type": "string" }
@@ -42,7 +38,7 @@ describe( 'Mysql Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "integer" },
                         { "name": "name", "type": "string" }
@@ -63,7 +59,7 @@ describe( 'Mysql Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "string" },
                         { "name": "name", "type": "string" }
@@ -84,7 +80,7 @@ describe( 'Mysql Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "key" },
                         { "name": "f1", "type": "key" },
@@ -106,7 +102,7 @@ describe( 'Mysql Indexes tests', () => {
         let schema = {
             entities: [
                 {
-                    name: EntityShortId(),
+                    name: RedEntitiesTestUtils.EntityShortId(),
                     fields: [
                         { "name": "f0", "type": "key" },
                         { "name": "f1", "type": "key" },
