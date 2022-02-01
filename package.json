@@ -6,7 +6,8 @@
   "scripts": {
     "testmysql": "mocha test/mysql",
     "testsqlite": "mocha test/sqlite",
-    "testpostgresql": "mocha test/postgresql"
+    "testpostgresql": "mocha test/postgresql",
+    "testmariadb": "mocha test/mariadb"
   },
   "author": "",
   "license": "ISC",
