@@ -1,6 +1,6 @@
 {
   "name": "redentities",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Simple & fast object-mapper & query builder, MySql, Sqlite AWS RDS mysql based databases supported",
   "main": "lib/redentities.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "mysql2": "^2.3.3",
     "nanoid": "^3.2.0",
     "pg": "^8.7.1",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "git@github.com:mapbox/node-sqlite3.git#3fb3715c4e699ca3bc19e47b136758c66f61e477" 
   },
   "repository": {
     "type": "git",
