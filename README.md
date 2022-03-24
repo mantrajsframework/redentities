@@ -49,7 +49,7 @@ $ npm i redentities --save
 
 ## Test
 
-Change database configuration [providers](/docs/02-providers.md) in file located at:
+Change database configuration [providers](/docs/02-rata-providers.md) in file located at:
 
 ```
 /test/providersconfig.json
@@ -120,21 +120,23 @@ const userEntity = await db.users.S().SingleById(userId);
 
 ## Documentation
 - [#01 Introduction](/docs/01-introduction.md)
-- [#02 Providers config](/docs/02-providers.md)
+- [#02 Providers config](/docs/02-data-providers.md)
 - [#03 Defining schemas](/docs/03-schemas.md)
-- [#04 Supported types](/docs/04-types.md)
+- [#04 Supported types](/docs/04-data-types.md)
 - [#05 Indexes](/docs/05-indexes.md)
-- [#06 Rows ids](/docs/06-ids.md)
+- [#06 Rows ids](/docs/06-entities-ids.md)
 - [#07 Sample schema](/docs/07-sampleschema.md)
 - [#08 Creating schemas](/docs/08-schemascreation.md)
-- [#09 Query shortcuts](/docs/09-queryshortcuts.md)
+- [#09 Query shortcuts](/docs/09-queryshort-cuts.md)
 - [#10 Inserting values](/docs/10-insert.md)
 - [#11 Selecting values](/docs/11-select.md)
 - [#12 Updating values](/docs/12-update.md)
 - [#13 Deleting values](/docs/13-delete.md)
 - [#14 Iterating over values](/docs/14-iterating.md)
 - [#15 Advanced topics](/docs/15-advanced-topics.md)
-
+- [#16 Recommendations](/docs/16-recommendations.md)
+- [#17 Fast CRUD summary](/docs/17-fast-crud-summary.md
+)
 ## Demos
 
 You can find some demos at /demos folders.
