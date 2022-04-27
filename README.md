@@ -171,4 +171,4 @@ Copyright (c) 2019-2021:
 
 ## Contact an support
 
-You can contact us by GitHub, accesing [Mantra web site](https://wwww.mantrajs.com) or at support@mantrajs.com.
+You can contact us by GitHub, accesing [Mantra web site](https://www.mantrajs.com) or at support@mantrajs.com.

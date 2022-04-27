@@ -44,7 +44,7 @@ Red Entities follow this software principle: data should be stored according to 
 
 The way you explote your data, determines the way it should be stored.
 
-As said above, this project is part of [Mantra Framework](https://wwww.mantrajs.com), which uses fully Red Entities as its object-mapper data access layer to build its components.
+As said above, this project is part of [Mantra Framework](https://www.mantrajs.com), which uses fully Red Entities as its object-mapper data access layer to build its components.
 
 # Documentation index
 
